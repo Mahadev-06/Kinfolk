@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  /* Monochrome premium palette */
+  --font-logo: "Playfair Display", serif;
+  --font-paragraph: "Inter", sans-serif;
+
+  --color-accent: #ffffff;
+  --color-accent-hover: #e0e0e0;
+  --color-accent-light: #f5f5f5;
+  --color-accent-glow: rgba(255,255,255,0.08);
+
+  --color-steel: #888888;
+  --color-steel-light: #aaaaaa;
+  --color-steel-dark: #666666;
+
+  --color-night: #000000;
+  --color-night-surface: #080808;
+  --color-night-card: #0f0f0f;
+  --color-night-elevated: #1a1a1a;
+  --color-night-border: #222222;
+  --color-night-input: #111111;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Smooth global transitions */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #000000;
+  color: #e5e5e5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  font-family: var(--font-paragraph);
+}
+
+/* React Flow overrides */
+.react-flow__node {
+  cursor: pointer !important;
+}
+
+.react-flow__controls button {
+  border-radius: 8px !important;
+}
+
+.react-flow__minimap {
+  border-radius: 12px !important;
+}
+
+/* Toast animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Premium scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.15);
+  color: inherit;
+}
+
+/* Subtle focus ring for accessibility */
+:focus-visible {
+  outline: 1px solid rgba(255,255,255,0.3);
+  outline-offset: 2px;
+}
+
+/* Smooth page transitions */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-page-enter {
+  animation: page-enter 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Haptic click effect */
+@keyframes haptic-press {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+button:active:not(:disabled) {
+  animation: haptic-press 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Subtle glow on interactive cards */
+.card-glow {
+  position: relative;
+}
+
+.card-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent, rgba(255,255,255,0.03));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-glow:hover::before {
+  opacity: 1;
+}
+
+/* Apple-style Liquid Glass navbar */
+.liquid-glass {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  isolation: isolate;
+  transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-radius: inherit;
+}
+
+/* Subtle refraction / rainbow sheen */
+.liquid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.04) 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.03) 75%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+  opacity: 0.8;
+  transition: opacity 0.4s ease;
+}
+
+/* Border glow ring */
+.liquid-glass {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.liquid-glass:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.liquid-glass:hover::after {
+  opacity: 1;
+}
