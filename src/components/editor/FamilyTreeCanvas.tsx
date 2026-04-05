@@ -59,6 +59,10 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  
+  // Relationship Discovery State
+  const [findingRelationWith, setFindingRelationWith] = useState<Person | null>(null);
+  const [relationshipResult, setRelationshipResult] = useState<string | null>(null);
 
   const selectedPerson = useMemo(
     () => tree.persons.find((p) => p.id === selectedPersonId) || null,
@@ -189,8 +193,27 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
   // ================== NODE CLICK ==================
 
   const onNodeClick = useCallback((_event: React.MouseEvent, node: Node) => {
+    if (findingRelationWith) {
+      if (node.id === findingRelationWith.id) {
+        showToast("Cannot select the same person.");
+        return;
+      }
+      
+      const personB = tree.persons.find(p => p.id === node.id);
+      if (personB) {
+        import('@/lib/relationshipFinder').then(mod => {
+          const result = mod.findRelationship(tree.persons, findingRelationWith.id, node.id);
+          setRelationshipResult(result);
+          setFindingRelationWith(null); // Exit selection mode
+          showToast(`Found connection to ${personB.name}`);
+        });
+      }
+      return;
+    }
+    
     setSelectedPersonId(node.id);
-  }, []);
+    setRelationshipResult(null); // Clear previous results when selecting a new person
+  }, [findingRelationWith, tree.persons]);
 
   // ================== LAYOUT ==================
 
@@ -233,7 +256,7 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
   }, []);
 
   return (
-    <div ref={reactFlowWrapper} className="w-full h-full relative">
+    <div ref={reactFlowWrapper} className="w-full h-[calc(100vh-64px)] md:h-screen relative">
       <Toolbar
         treeName={tree.name}
         onAddPerson={() => setShowAddPerson(true)}
@@ -307,6 +330,15 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
         onAddRelationship={handleAddRelationship}
         onRemoveRelationship={handleRemoveRelationship}
         onSelectPerson={handleSelectPerson}
+        onFindRelationship={() => {
+          if (selectedPerson) {
+            setFindingRelationWith(selectedPerson);
+            setRelationshipResult(null);
+            showToast(`Now select another person to find relationship...`);
+          }
+        }}
+        findingRelationWith={findingRelationWith}
+        relationshipResult={relationshipResult}
       />
 
       {/* Modals */}

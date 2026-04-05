@@ -24,9 +24,9 @@ export default function Toolbar({
       initial={{ y: -10, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="fixed top-3.5 right-6 z-[60] flex items-center justify-end pointer-events-none"
+      className="fixed top-2 md:top-4 right-4 md:right-6 z-[60] flex items-center justify-end pointer-events-none"
     >
-      <div className="flex items-center gap-2 pointer-events-auto">
+      <div className="flex items-center gap-1.5 md:gap-2 pointer-events-auto">
         <ToolbarButton onClick={onAddPerson} title="Add Person" variant="primary">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
@@ -71,19 +71,21 @@ function ToolbarButton({
   variant?: 'default' | 'primary';
 }) {
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.02, y: -1 }}
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
       title={title}
       className={`
-        flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium
-        backdrop-blur-2xl border shadow-lg transition-all duration-300
+        flex items-center gap-2 px-2.5 md:px-3 py-2 rounded-xl text-sm font-medium
+        transition-all duration-300 btn-liquid-glass
         ${variant === 'primary'
-          ? 'bg-white text-black border-white/20 hover:bg-neutral-200 hover:shadow-xl hover:shadow-white/[0.05]'
-          : 'bg-night-card/90 text-neutral-400 border-white/[0.06] hover:bg-night-elevated hover:text-white'
+          ? 'text-white border-white/30 shadow-xl shadow-white/[0.05]'
+          : 'text-neutral-400'
         }
       `}
     >
       {children}
-    </button>
+    </motion.button>
   );
 }

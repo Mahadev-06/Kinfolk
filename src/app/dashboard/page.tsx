@@ -70,29 +70,27 @@ export default function DashboardPage() {
       <BackgroundWaves />
       <div className="relative z-[1]">
         <Navbar
-        rightActions={
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="group hidden sm:inline-flex items-center p-2 rounded-full bg-white/[0.05] text-neutral-400 hover:bg-white/[0.1] hover:text-white transition-all duration-300 text-sm font-medium border border-white/[0.08]"
-          >
-            <div className="w-5 h-5 flex items-center justify-center shrink-0">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          rightActions={
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setShowCreateModal(true)}
+              className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl text-white text-[15px] font-medium transition-all duration-300 btn-liquid-glass pointer-events-auto"
+            >
+              <svg className="w-5 h-5 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
-            </div>
-            <span className="max-w-0 overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-0 group-hover:max-w-[100px] group-hover:opacity-100">
-              <span className="pl-2 pr-1 inline-block">New Tree</span>
-            </span>
-          </button>
-        }
-      />
+              <span>New Tree</span>
+            </motion.button>
+          }
+        />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 md:pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10"
+          className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 md:mb-10"
         >
           <div>
             <h1 className="text-3xl font-bold text-white tracking-tight">

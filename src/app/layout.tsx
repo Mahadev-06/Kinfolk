@@ -20,8 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable}`}>
-      <body className="min-h-screen bg-night text-slate-100 font-sans antialiased">
-        {children}
+      <body className="min-h-screen bg-night text-slate-100 font-sans antialiased overflow-x-hidden">
+        <main className="animate-page-slide-up">
+          {children}
+        </main>
       </body>
     </html>
   );

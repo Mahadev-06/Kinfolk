@@ -14,6 +14,9 @@ interface PersonPanelProps {
   onAddRelationship: (personId: string, type: 'parent' | 'spouse' | 'child' | 'custom') => void;
   onRemoveRelationship: (personAId: string, personBId: string, type: 'parent-child' | 'spouse' | 'custom', relId?: string) => void;
   onSelectPerson: (personId: string) => void;
+  onFindRelationship: () => void;
+  findingRelationWith?: Person | null;
+  relationshipResult?: string | null;
 }
 
 export default function PersonPanel({
@@ -25,6 +28,9 @@ export default function PersonPanel({
   onAddRelationship,
   onRemoveRelationship,
   onSelectPerson,
+  onFindRelationship,
+  findingRelationWith,
+  relationshipResult,
 }: PersonPanelProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState('');
@@ -59,21 +65,17 @@ export default function PersonPanel({
     <AnimatePresence>
       {person && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-          onClick={onClose}
+          initial={{ opacity: 0, x: 20, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: 20, scale: 0.95 }}
+          transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+          className="fixed top-24 right-6 bottom-8 z-[60] w-full max-w-[380px] pointer-events-none"
         >
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0, y: 10 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: 10 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            className="relative w-full max-w-[380px] max-h-[85vh] bg-[#0f0f0f]/95 backdrop-blur-2xl border border-white/[0.08] shadow-[0_0_80px_rgba(0,0,0,0.8)] rounded-3xl overflow-hidden flex flex-col"
+          <div 
+            className="w-full h-full btn-liquid-glass rounded-[32px] overflow-hidden flex flex-col pointer-events-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] border border-white/[0.08]"
             onClick={(e) => e.stopPropagation()}
           >
+
           {/* Header */}
           <div className="shrink-0 bg-white/[0.02] border-b border-white/[0.06] p-4 flex items-center justify-between">
             <h3 className="font-semibold text-white tracking-wide">Person Details</h3>
@@ -207,16 +209,46 @@ export default function PersonPanel({
                     </svg>
                     Edit
                   </button>
-                  <button
-                    onClick={() => onDelete(person.id)}
-                    className="flex-1 py-2.5 rounded-lg bg-white/[0.03] text-neutral-500 text-sm font-medium hover:bg-red-950/30 hover:text-red-400 transition-all duration-300 flex items-center justify-center gap-1.5"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                    Delete
-                  </button>
-                </div>
+                    <button
+                      onClick={() => onDelete(person.id)}
+                      className="flex-1 py-2.5 rounded-lg bg-white/[0.03] text-neutral-500 text-sm font-medium hover:bg-red-950/30 hover:text-red-400 transition-all duration-300 flex items-center justify-center gap-1.5"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      Delete
+                    </button>
+                  </div>
+
+                  {/* Find Relationship Button */}
+                  <div className="pt-2 border-t border-white/[0.06]">
+                    <button
+                      onClick={onFindRelationship}
+                      disabled={!!findingRelationWith}
+                      className={`w-full py-3 rounded-xl border border-white/[0.08] text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 
+                        ${findingRelationWith 
+                          ? 'bg-white/10 text-white cursor-wait animate-pulse' 
+                          : 'bg-white/[0.03] text-neutral-400 hover:bg-white/[0.08] hover:text-white'}`}
+                    >
+                      <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      {findingRelationWith ? 'Select someone from the tree...' : 'Find Relationship'}
+                    </button>
+                    
+                    {relationshipResult && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-3 p-4 rounded-2xl bg-white/[0.05] border border-white/[0.08] text-center"
+                      >
+                        <p className="text-xs text-neutral-500 uppercase tracking-widest mb-1 font-semibold">Discovery</p>
+                        <p className="text-sm text-white/90 leading-relaxed font-paragraph">
+                          <span className="font-bold text-white">{person.name}</span> {relationshipResult}
+                        </p>
+                      </motion.div>
+                    )}
+                  </div>
 
                 {/* Relationships */}
                 <div className="space-y-4">
@@ -295,7 +327,7 @@ export default function PersonPanel({
               </>
             )}
           </div>
-          </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

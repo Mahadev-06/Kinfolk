@@ -70,12 +70,17 @@ export default function TreeCard({ tree, onDelete }: TreeCardProps) {
           </div>
         </div>
 
-        <Link
-          href={`/editor/${tree.id}`}
-          className="block w-full text-center py-2.5 rounded-xl bg-white/[0.05] text-neutral-300 font-medium text-sm hover:bg-white hover:text-black transition-all duration-500 border border-white/[0.06] hover:border-white"
+        <motion.div
+           whileHover={{ scale: 1.02 }}
+           whileTap={{ scale: 0.98 }}
         >
-          Open Editor
-        </Link>
+          <Link
+            href={`/editor/${tree.id}`}
+            className="block w-full text-center py-2.5 rounded-xl font-medium text-sm text-neutral-300 transition-all duration-300 btn-liquid-glass"
+          >
+            Open Editor
+          </Link>
+        </motion.div>
       </div>
     </motion.div>
   );

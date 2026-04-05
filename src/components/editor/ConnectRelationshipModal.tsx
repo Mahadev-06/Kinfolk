@@ -63,7 +63,7 @@ export default function ConnectRelationshipModal({
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 10 }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            className="bg-[#0f0f0f] rounded-2xl p-6 max-w-md w-full shadow-2xl border border-white/[0.06] max-h-[80vh] flex flex-col"
+            className="bg-[#0f0f0f] rounded-2xl md:rounded-3xl p-5 md:p-8 max-w-md w-full shadow-2xl border border-white/[0.06] max-h-[90vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-4">
