@@ -65,16 +65,17 @@ export default function PersonPanel({
     <AnimatePresence>
       {person && (
         <motion.div
-          initial={{ opacity: 0, x: 20, scale: 0.95 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          exit={{ opacity: 0, x: 20, scale: 0.95 }}
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.95 }}
           transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-          className="fixed top-24 right-6 bottom-8 z-[60] w-full max-w-[380px] pointer-events-none"
+          className="fixed top-24 left-4 right-4 md:left-auto md:right-6 bottom-8 z-[60] w-auto md:w-[380px] pointer-events-none"
         >
           <div 
-            className="w-full h-full btn-liquid-glass rounded-[32px] overflow-hidden flex flex-col pointer-events-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] border border-white/[0.08]"
+            className="w-full h-full btn-liquid-glass rounded-[24px] sm:rounded-[32px] overflow-hidden flex flex-col pointer-events-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] border border-white/[0.08]"
             onClick={(e) => e.stopPropagation()}
           >
+
 
           {/* Header */}
           <div className="shrink-0 bg-white/[0.02] border-b border-white/[0.06] p-4 flex items-center justify-between">

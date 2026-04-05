@@ -273,21 +273,24 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
         onNodeClick={onNodeClick}
         nodeTypes={nodeTypes}
         fitView
-        fitViewOptions={{ padding: 0.3 }}
-        minZoom={0.1}
-        maxZoom={2}
+        fitViewOptions={{ padding: 0.2 }}
+        minZoom={0.05}
+        maxZoom={1.5}
+        panOnScroll={true}
+        selectionOnDrag={false}
         className="!bg-[#050505]"
         proOptions={{ hideAttribution: true }}
       >
         <Background
-          variant={BackgroundVariant.Lines}
-          gap={30}
-          lineWidth={1}
-          color="rgba(255, 255, 255, 0.04)"
+          variant={BackgroundVariant.Dots}
+          gap={24}
+          size={1}
+          color="rgba(255, 255, 255, 0.05)"
         />
         <Controls 
-          className="!bg-[#0f0f0f]/90 !border-white/[0.06] !rounded-xl !shadow-2xl [&>button]:!bg-transparent [&>button]:!border-white/[0.06] [&>button]:!text-neutral-400 [&>button:hover]:!bg-white/[0.05] [&>button:hover]:!text-white !mb-32 !ml-6 [&>button]:!w-10 [&>button]:!h-10 [&>button>svg]:!w-5 [&>button>svg]:!h-5 [&>button>svg]:!mx-auto" 
+          className="!bg-[#0f0f0f]/90 !border-white/[0.06] !rounded-xl !shadow-2xl [&>button]:!bg-transparent [&>button]:!border-white/[0.06] [&>button]:!text-neutral-400 [&>button:hover]:!bg-white/[0.05] [&>button:hover]:!text-white !mb-24 !ml-6 [&>button]:!w-11 [&>button]:!h-11 [&>button>svg]:!w-5 [&>button>svg]:!h-5" 
         />
+
         <MiniMap
           nodeColor={() => '#ffffff'}
           className="!bg-[#0f0f0f]/90 !border-white/[0.06] !rounded-xl !shadow-2xl"
