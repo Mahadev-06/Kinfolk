@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 
 export default function SignupPage() {
@@ -12,6 +12,8 @@ export default function SignupPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect');
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,9 +34,7 @@ export default function SignupPage() {
       setError(authError.message);
       setLoading(false);
     } else {
-      // By default, Supabase auto-confirms if dev, or requires email auth.
-      // We will blindly push to landing, middleware will handle it.
-      router.push('/');
+      router.push(redirectTo || '/dashboard');
       router.refresh();
     }
   };

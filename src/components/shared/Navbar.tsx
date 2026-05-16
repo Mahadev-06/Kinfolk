@@ -243,9 +243,16 @@ function FloatingNavbar({
           pathname !== '/' && (
             <Link
               href="/login"
-              className="btn-liquid-glass px-8 py-3 rounded-2xl text-white text-[15px] font-medium"
+              className="group inline-flex items-center p-3 rounded-2xl btn-liquid-glass text-white text-[15px] font-medium"
             >
-              Sign In
+              <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                <svg className="w-5 h-5 opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+              </div>
+              <span className="max-w-0 overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-0 group-hover:max-w-[80px] group-hover:opacity-100">
+                <span className="pl-2.5 pr-1 inline-block">Sign In</span>
+              </span>
             </Link>
           )
         ) : (
@@ -253,13 +260,17 @@ function FloatingNavbar({
             {pathname !== '/' && (
               <Link
                 href="/"
-                className="btn-liquid-glass flex items-center gap-2 px-6 py-3 rounded-2xl text-white text-[15px] font-medium"
+                className="group inline-flex items-center p-3 rounded-2xl btn-liquid-glass text-white text-[15px] font-medium"
                 title="Return Home"
               >
-                <svg className="w-5 h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-                <span>Home</span>
+                <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                  </svg>
+                </div>
+                <span className="max-w-0 overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-0 group-hover:max-w-[80px] group-hover:opacity-100">
+                  <span className="pl-2.5 pr-1 inline-block">Home</span>
+                </span>
               </Link>
             )}
             {pathname !== '/' && (
@@ -273,9 +284,16 @@ function FloatingNavbar({
                    e.stopPropagation();
                    onSignOut();
                  }}
-                 className="btn-liquid-glass px-8 py-3 rounded-2xl text-white text-[15px] font-medium"
+                 className="group inline-flex items-center p-3 rounded-2xl btn-liquid-glass text-white text-[15px] font-medium"
               >
-                Logout
+                <div className="w-5 h-5 flex items-center justify-center shrink-0 text-red-400">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                </div>
+                <span className="max-w-0 overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-0 group-hover:max-w-[80px] group-hover:opacity-100">
+                  <span className="pl-2.5 pr-1 inline-block text-red-400">Logout</span>
+                </span>
               </motion.button>
             )}
           </>

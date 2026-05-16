@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import { getInitials } from '@/lib/utils';
 
 const mockPersons = [
-  { id: '1', name: 'Robert Johnson', gender: 'male', y: 0, x: 250 },
-  { id: '2', name: 'Margaret Johnson', gender: 'female', y: 0, x: 500 },
-  { id: '3', name: 'James Johnson', gender: 'male', y: 160, x: 200 },
-  { id: '4', name: 'Sarah Johnson', gender: 'female', y: 160, x: 420 },
-  { id: '5', name: 'Elizabeth Parker', gender: 'female', y: 160, x: 640 },
-  { id: '6', name: 'Emily Johnson', gender: 'female', y: 320, x: 310 },
+  { id: '1', name: 'Robert Johnson', gender: 'male', y: 0, x: 250, color: '#3B82F6' },
+  { id: '2', name: 'Margaret Johnson', gender: 'female', y: 0, x: 500, color: '#F472B6' },
+  { id: '3', name: 'James Johnson', gender: 'male', y: 160, x: 200, color: '#6366F1' },
+  { id: '4', name: 'Sarah Johnson', gender: 'female', y: 160, x: 420, color: '#F59E0B' },
+  { id: '5', name: 'Elizabeth Parker', gender: 'female', y: 160, x: 640, color: '#A78BFA' },
+  { id: '6', name: 'Emily Johnson', gender: 'female', y: 320, x: 310, color: '#34D399' },
 ];
 
 const mockEdges = [
@@ -25,7 +25,7 @@ const mockEdges = [
 
 export default function DemoPreview() {
   return (
-    <section className="py-24 sm:py-32 relative z-10">
+    <section className="pt-32 sm:pt-48 pb-24 sm:pb-32 relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,10 +34,12 @@ export default function DemoPreview() {
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-center mb-14"
         >
-          <span className="inline-block text-[11px] font-semibold tracking-[0.3em] uppercase text-neutral-500 mb-5">
-            Preview
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5 tracking-tight leading-[1.1]">
+          <div className="mb-6">
+            <span className="inline-block text-[11px] font-semibold tracking-[0.3em] uppercase text-neutral-500">
+              Preview
+            </span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight leading-[1.15] sm:leading-[1.1]">
             See it in action
           </h2>
           <p className="text-neutral-400 text-lg max-w-md mx-auto">
@@ -103,7 +105,10 @@ export default function DemoPreview() {
                 style={{ left: person.x, top: person.y + 10, zIndex: 2 }}
               >
                 <div className="w-[170px] bg-neutral-900 rounded-xl border border-white/[0.08] shadow-lg p-3 flex items-center gap-3 hover:border-white/[0.2] transition-all duration-300 cursor-pointer">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-black text-xs font-bold shrink-0 bg-white">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+                    style={{ backgroundColor: person.color }}
+                  >
                     {getInitials(person.name)}
                   </div>
                   <div className="min-w-0">

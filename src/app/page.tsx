@@ -24,7 +24,7 @@ export default function LandingPage() {
     <>
       <Navbar />
       <BackgroundWaves />
-      <main className="relative z-[1]">
+      <main className="relative z-[1] animate-page-slide-up">
         {/* Hero: Full-viewport dark section */}
         <Hero />
 
@@ -37,7 +37,7 @@ export default function LandingPage() {
         {/* CTA Section */}
         <section className="py-24 sm:py-32 relative overflow-hidden">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight leading-[1.15] sm:leading-[1.1]">
               Ready to start mapping<br />your family story?
             </h2>
             <p className="text-neutral-400 text-lg mb-10 max-w-lg mx-auto">

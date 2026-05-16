@@ -34,7 +34,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-5xl sm:text-6xl lg:text-[4.5rem] font-bold tracking-tight mb-7 leading-[1.08] text-white"
+          className="text-5xl sm:text-6xl lg:text-[4.5rem] font-bold tracking-tight mb-7 leading-[1.15] sm:leading-[1.1] text-white"
         >
           {['Turn', 'your', 'family'].map((word, i) => (
             <span key={`l1-${i}`} className="inline-block mr-[0.25em] last:mr-0">

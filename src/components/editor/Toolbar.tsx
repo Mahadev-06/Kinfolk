@@ -8,7 +8,6 @@ interface ToolbarProps {
   onAutoLayout: () => void;
   onExportPng: () => void;
   onShare: () => void;
-  isPublic?: boolean;
 }
 
 export default function Toolbar({
@@ -17,7 +16,6 @@ export default function Toolbar({
   onAutoLayout,
   onExportPng,
   onShare,
-  isPublic = false,
 }: ToolbarProps) {
   return (
     <motion.div
@@ -27,14 +25,13 @@ export default function Toolbar({
       className="fixed top-2 md:top-4 right-4 md:right-6 z-[60] flex items-center justify-end pointer-events-none"
     >
       <div className="flex items-center gap-1.5 md:gap-2 pointer-events-auto">
-        <ToolbarButton onClick={onAddPerson} title="Add Person" variant="primary">
+        <ToolbarButton onClick={onAddPerson} title="Add Person" label="Add Person" variant="primary">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
           </svg>
-          <span className="hidden sm:inline">Add Person</span>
         </ToolbarButton>
 
-        <ToolbarButton onClick={onAutoLayout} title="Auto Layout">
+        <ToolbarButton onClick={onAutoLayout} title="Auto Layout" label="Layout">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
           </svg>
@@ -42,17 +39,16 @@ export default function Toolbar({
 
         <div className="w-px h-6 bg-white/[0.06]" />
 
-        <ToolbarButton onClick={onExportPng} title="Export PNG">
+        <ToolbarButton onClick={onExportPng} title="Export PNG" label="Export">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </ToolbarButton>
 
-        <ToolbarButton onClick={onShare} title={isPublic ? "Copy Share Link" : "Share Tree"} variant={isPublic ? "primary" : "default"}>
+        <ToolbarButton onClick={onShare} title="Share Tree" label="Share">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
           </svg>
-          <span className="hidden sm:inline">{isPublic ? "Shared" : "Share"}</span>
         </ToolbarButton>
       </div>
     </motion.div>
@@ -63,11 +59,13 @@ function ToolbarButton({
   children,
   onClick,
   title,
+  label,
   variant = 'default',
 }: {
   children: React.ReactNode;
   onClick: () => void;
   title: string;
+  label: string;
   variant?: 'default' | 'primary';
 }) {
   return (
@@ -77,7 +75,7 @@ function ToolbarButton({
       onClick={onClick}
       title={title}
       className={`
-        flex items-center gap-2 px-2.5 md:px-3 py-2 rounded-xl text-sm font-medium
+        group flex items-center p-2.5 rounded-xl text-sm font-medium
         transition-all duration-300 btn-liquid-glass
         ${variant === 'primary'
           ? 'text-white border-white/30 shadow-xl shadow-white/[0.05]'
@@ -85,7 +83,12 @@ function ToolbarButton({
         }
       `}
     >
-      {children}
+      <div className="w-4 h-4 flex items-center justify-center shrink-0">
+        {children}
+      </div>
+      <span className="max-w-0 overflow-hidden whitespace-nowrap transition-[max-width,opacity] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-0 group-hover:max-w-[120px] group-hover:opacity-100">
+        <span className="pl-2 pr-0.5 inline-block">{label}</span>
+      </span>
     </motion.button>
   );
 }

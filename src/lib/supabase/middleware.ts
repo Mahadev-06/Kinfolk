@@ -47,10 +47,13 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // If user is ALREADY logged in and tries to hit /login -> kick to dashboard
+  // If user is ALREADY logged in and tries to hit /login -> redirect
   if (user && isAuthPath) {
     const url = request.nextUrl.clone()
-    url.pathname = '/dashboard'
+    // If there's a redirect param, honor it (e.g. shared tree link)
+    const redirectTo = request.nextUrl.searchParams.get('redirect')
+    url.pathname = redirectTo || '/dashboard'
+    url.search = '' // Clear search params
     return NextResponse.redirect(url)
   }
 

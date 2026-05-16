@@ -27,6 +27,7 @@ import Toolbar from './Toolbar';
 import PersonPanel from './PersonPanel';
 import AddPersonModal from './AddPersonModal';
 import ConnectRelationshipModal from './ConnectRelationshipModal';
+import ShareModal from './ShareModal';
 import ConfirmDialog from '../shared/ConfirmDialog';
 
 const nodeTypes: NodeTypes = {
@@ -59,6 +60,8 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareUrl, setShareUrl] = useState('');
   
   // Relationship Discovery State
   const [findingRelationWith, setFindingRelationWith] = useState<Person | null>(null);
@@ -238,17 +241,19 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
   }, [tree.name]);
   
   const handleShare = useCallback(async () => {
-    const isPublicNow = !tree.is_public;
-    const success = await import('@/lib/storage').then(mod => mod.shareTree(tree.id, isPublicNow));
-    
-    if (success) {
-      onTreeUpdate({ ...tree, is_public: isPublicNow });
-      const shareUrl = `${window.location.origin}/tree/${tree.id}`;
-      await navigator.clipboard.writeText(shareUrl);
-      showToast(isPublicNow ? 'Tree is now public! Link copied.' : 'Tree is now private.');
-    } else {
-      showToast('Failed to update share settings');
+    // Make tree public if not already
+    if (!tree.is_public) {
+      const success = await import('@/lib/storage').then(mod => mod.shareTree(tree.id, true));
+      if (success) {
+        onTreeUpdate({ ...tree, is_public: true });
+      } else {
+        showToast('Failed to generate share link');
+        return;
+      }
     }
+    const url = `${window.location.origin}/tree/${tree.id}`;
+    setShareUrl(url);
+    setShowShareModal(true);
   }, [tree, onTreeUpdate]);
 
   const handleSelectPerson = useCallback((personId: string) => {
@@ -263,7 +268,6 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
         onAutoLayout={handleAutoLayout}
         onExportPng={handleExportPng}
         onShare={handleShare}
-        isPublic={tree.is_public}
       />
 
       <ReactFlow
@@ -371,6 +375,12 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
           setDeleteTargetId(null);
         }}
         variant="danger"
+      />
+
+      <ShareModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        shareUrl={shareUrl}
       />
 
       {/* Toast */}

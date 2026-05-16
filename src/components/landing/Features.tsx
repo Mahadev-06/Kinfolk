@@ -78,7 +78,7 @@ export default function Features() {
           <span className="inline-block text-[11px] font-semibold tracking-[0.3em] uppercase text-neutral-500 mb-5">
             Features
           </span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-[1.08]">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight leading-[1.15] sm:leading-[1.1]">
             Everything you need to<br />map your lineage
           </h2>
           <p className="text-neutral-400 text-lg max-w-xl mx-auto leading-relaxed">

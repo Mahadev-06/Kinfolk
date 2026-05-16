@@ -119,6 +119,18 @@ export async function shareTree(id: string, isPublic: boolean): Promise<boolean>
   return true;
 }
 
+export async function getPublicTree(id: string): Promise<FamilyTree | null> {
+  try {
+    const res = await fetch(`/api/public-tree/${id}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data as FamilyTree;
+  } catch (err) {
+    console.error('Error fetching public tree:', err);
+    return null;
+  }
+}
+
 export async function cloneTree(tree: FamilyTree): Promise<FamilyTree | null> {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();

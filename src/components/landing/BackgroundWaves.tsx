@@ -11,7 +11,7 @@ export default function BackgroundWaves() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMin slice"
-        style={{ filter: "drop-shadow(0 0 15px rgba(56, 189, 248, 0.25)) drop-shadow(0 0 45px rgba(99, 102, 241, 0.15))" }}
+        style={{ willChange: 'opacity' }}
         animate={{ opacity: [0.55, 0.9, 0.55] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       >
