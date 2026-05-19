@@ -6,56 +6,68 @@ export async function updateSession(request: NextRequest) {
     request,
   })
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
-          supabaseResponse = NextResponse.next({
-            request,
-          })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          )
-        },
-      },
+  try {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      return supabaseResponse
     }
-  )
 
-  // Retrieve current user via cookie-based token
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+    const supabase = createServerClient(
+      supabaseUrl,
+      supabaseAnonKey,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll()
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+            supabaseResponse = NextResponse.next({
+              request,
+            })
+            cookiesToSet.forEach(({ name, value, options }) =>
+              supabaseResponse.cookies.set(name, value, options)
+            )
+          },
+        },
+      }
+    )
 
-  const isProtectedPath = 
-    request.nextUrl.pathname.startsWith('/dashboard') || 
-    request.nextUrl.pathname.startsWith('/editor');
+    // Retrieve current user via cookie-based token
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
 
-  const isAuthPath = 
-    request.nextUrl.pathname.startsWith('/login') || 
-    request.nextUrl.pathname.startsWith('/signup');
+    const isProtectedPath = 
+      request.nextUrl.pathname.startsWith('/dashboard') || 
+      request.nextUrl.pathname.startsWith('/editor');
 
-  // If user is trying to access dashboard but NOT logged in -> kick to login
-  if (!user && isProtectedPath) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
-  }
+    const isAuthPath = 
+      request.nextUrl.pathname.startsWith('/login') || 
+      request.nextUrl.pathname.startsWith('/signup');
 
-  // If user is ALREADY logged in and tries to hit /login -> redirect
-  if (user && isAuthPath) {
-    const url = request.nextUrl.clone()
-    // If there's a redirect param, honor it (e.g. shared tree link)
-    const redirectTo = request.nextUrl.searchParams.get('redirect')
-    url.pathname = redirectTo || '/dashboard'
-    url.search = '' // Clear search params
-    return NextResponse.redirect(url)
+    // If user is trying to access dashboard but NOT logged in -> kick to login
+    if (!user && isProtectedPath) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      return NextResponse.redirect(url)
+    }
+
+    // If user is ALREADY logged in and tries to hit /login -> redirect
+    if (user && isAuthPath) {
+      const url = request.nextUrl.clone()
+      // If there's a redirect param, honor it (e.g. shared tree link)
+      const redirectTo = request.nextUrl.searchParams.get('redirect')
+      url.pathname = redirectTo || '/dashboard'
+      url.search = '' // Clear search params
+      return NextResponse.redirect(url)
+    }
+  } catch (error) {
+    console.error("Middleware session update failed:", error)
   }
 
   return supabaseResponse
 }
+
