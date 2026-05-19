@@ -1,6 +1,4 @@
-'use client';
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Person } from '@/lib/types';
 import { getInitials, getGenderColor, getGenderIcon, formatDate } from '@/lib/utils';
@@ -37,6 +35,16 @@ export default function PersonPanel({
   const [editGender, setEditGender] = useState<Person['gender']>('male');
   const [editBirth, setEditBirth] = useState('');
   const [editDeath, setEditDeath] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const startEdit = () => {
     if (!person) return;
@@ -61,22 +69,45 @@ export default function PersonPanel({
 
   const getPersonById = (id: string) => allPersons.find((p) => p.id === id);
 
+  const activeVariant = isMobile 
+    ? {
+        initial: { y: '100%' },
+        animate: { y: 0 },
+        exit: { y: '100%' },
+        transition: { type: 'spring' as const, damping: 25, stiffness: 220 }
+      }
+    : {
+        initial: { opacity: 0, y: 20, scale: 0.95 },
+        animate: { opacity: 1, y: 0, scale: 1 },
+        exit: { opacity: 0, y: 20, scale: 0.95 },
+        transition: { duration: 0.4, ease: [0.23, 1, 0.32, 1] }
+      };
+
   return (
     <AnimatePresence>
       {person && (
         <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.95 }}
-          transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-          className="fixed top-24 left-4 right-4 md:left-auto md:right-6 bottom-8 z-[60] w-auto md:w-[380px] pointer-events-none"
+          initial={activeVariant.initial}
+          animate={activeVariant.animate}
+          exit={activeVariant.exit}
+          transition={activeVariant.transition as any}
+          className={isMobile 
+            ? "fixed bottom-0 left-0 right-0 z-[60] w-full h-[62vh] pointer-events-none" 
+            : "fixed top-24 right-6 bottom-8 z-[60] w-[380px] pointer-events-none"
+          }
         >
           <div 
-            className="w-full h-full btn-liquid-glass rounded-[24px] sm:rounded-[32px] overflow-hidden flex flex-col pointer-events-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] border border-white/[0.08]"
+            className={isMobile 
+              ? "w-full h-full bg-[#0a0a0a]/95 backdrop-blur-2xl rounded-t-[28px] overflow-hidden flex flex-col pointer-events-auto border-t border-x border-white/[0.08] shadow-[0_-16px_48px_rgba(0,0,0,0.8)]"
+              : "w-full h-full btn-liquid-glass rounded-[32px] overflow-hidden flex flex-col pointer-events-auto shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] border border-white/[0.08]"
+            }
             onClick={(e) => e.stopPropagation()}
           >
-
-
+            {isMobile && (
+              <div className="w-full flex justify-center pt-3 pb-1 shrink-0">
+                <div className="w-12 h-1.5 rounded-full bg-white/10" />
+              </div>
+            )}
           {/* Header */}
           <div className="shrink-0 bg-white/[0.02] border-b border-white/[0.06] p-4 flex items-center justify-between">
             <h3 className="font-semibold text-white tracking-wide">Person Details</h3>

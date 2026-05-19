@@ -11,6 +11,7 @@ export async function loadTrees(): Promise<FamilyTree[]> {
   const { data, error } = await supabase
     .from('trees')
     .select('*')
+    .eq('user_id', user.id)
     .order('updated_at', { ascending: false });
 
   if (error) {
@@ -31,10 +32,14 @@ export async function loadTrees(): Promise<FamilyTree[]> {
 
 export async function getTree(id: string): Promise<FamilyTree | null> {
   const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return null;
+
   const { data, error } = await supabase
     .from('trees')
     .select('*')
     .eq('id', id)
+    .eq('user_id', user.id)
     .single();
 
   if (error || !data) {
@@ -93,10 +98,14 @@ export async function saveTree(tree: FamilyTree): Promise<FamilyTree | null> {
 
 export async function deleteTree(id: string): Promise<boolean> {
   const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
+
   const { error } = await supabase
     .from('trees')
     .delete()
-    .eq('id', id);
+    .eq('id', id)
+    .eq('user_id', user.id);
 
   if (error) {
     console.error('Error deleting tree:', error);
@@ -107,10 +116,14 @@ export async function deleteTree(id: string): Promise<boolean> {
 
 export async function shareTree(id: string, isPublic: boolean): Promise<boolean> {
   const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return false;
+
   const { error } = await supabase
     .from('trees')
     .update({ is_public: isPublic })
-    .eq('id', id);
+    .eq('id', id)
+    .eq('user_id', user.id);
 
   if (error) {
     console.error('Error sharing tree:', error);

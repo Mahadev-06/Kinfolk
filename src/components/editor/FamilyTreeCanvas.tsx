@@ -41,6 +41,16 @@ interface FamilyTreeCanvasProps {
 
 export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanvasProps) {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Compute layout from persons
   const { nodes: layoutedNodes, edges: layoutedEdges } = useMemo(
@@ -261,7 +271,7 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
   }, []);
 
   return (
-    <div ref={reactFlowWrapper} className="w-full h-[calc(100vh-64px)] md:h-screen relative">
+    <div ref={reactFlowWrapper} className="w-full h-[100dvh] relative">
       <Toolbar
         treeName={tree.name}
         onAddPerson={() => setShowAddPerson(true)}
@@ -275,6 +285,10 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
         edges={edges}
         onNodesChange={onNodesChange}
         onNodeClick={onNodeClick}
+        onPaneClick={useCallback(() => {
+          setSelectedPersonId(null);
+          setRelationshipResult(null);
+        }, [])}
         nodeTypes={nodeTypes}
         fitView
         fitViewOptions={{ padding: 0.2 }}
@@ -292,14 +306,28 @@ export default function FamilyTreeCanvas({ tree, onTreeUpdate }: FamilyTreeCanva
           color="rgba(255, 255, 255, 0.05)"
         />
         <Controls 
-          className="!bg-[#0f0f0f]/90 !border-white/[0.06] !rounded-xl !shadow-2xl [&>button]:!bg-transparent [&>button]:!border-white/[0.06] [&>button]:!text-neutral-400 [&>button:hover]:!bg-white/[0.05] [&>button:hover]:!text-white !mb-24 !ml-6 [&>button]:!w-11 [&>button]:!h-11 [&>button>svg]:!w-5 [&>button>svg]:!h-5" 
+          position={isMobile && selectedPerson ? 'top-left' : 'bottom-left'}
+          className={`!bg-[#0f0f0f]/90 !border-white/[0.06] !rounded-xl !shadow-2xl [&>button]:!bg-transparent [&>button]:!border-white/[0.06] [&>button]:!text-neutral-400 [&>button:hover]:!bg-white/[0.05] [&>button:hover]:!text-white [&>button]:!w-11 [&>button]:!h-11 [&>button>svg]:!w-5 [&>button>svg]:!h-5 transition-all duration-300
+            ${isMobile 
+              ? (selectedPerson 
+                  ? '!top-20 !left-4 !bottom-auto !right-auto' 
+                  : '!bottom-6 !left-4 !top-auto !right-auto')
+              : '!bottom-8 !left-6'
+            }`}
         />
 
-        <MiniMap
-          nodeColor={() => '#ffffff'}
-          className="!bg-[#0f0f0f]/90 !border-white/[0.06] !rounded-xl !shadow-2xl"
-          maskColor="rgb(0 0 0 / 0.3)"
-        />
+        {!isMobile && (
+          <MiniMap
+            position={selectedPerson ? 'bottom-left' : 'bottom-right'}
+            nodeColor={() => '#ffffff'}
+            className={`!bg-[#0f0f0f]/90 !border-white/[0.06] !rounded-xl !shadow-2xl transition-all duration-300
+              ${selectedPerson 
+                ? '!bottom-32 !left-6 !right-auto !top-auto' 
+                : '!bottom-8 !right-6 !left-auto !top-auto'
+              }`}
+            maskColor="rgb(0 0 0 / 0.3)"
+          />
+        )}
 
         {/* Empty state */}
         {tree.persons.length === 0 && (

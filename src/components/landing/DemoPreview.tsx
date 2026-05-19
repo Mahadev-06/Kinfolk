@@ -1,15 +1,23 @@
-'use client';
-
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { getInitials } from '@/lib/utils';
 
-const mockPersons = [
+const desktopPersons = [
   { id: '1', name: 'Robert Johnson', gender: 'male', y: 0, x: 250, color: '#3B82F6' },
   { id: '2', name: 'Margaret Johnson', gender: 'female', y: 0, x: 500, color: '#F472B6' },
   { id: '3', name: 'James Johnson', gender: 'male', y: 160, x: 200, color: '#6366F1' },
   { id: '4', name: 'Sarah Johnson', gender: 'female', y: 160, x: 420, color: '#F59E0B' },
   { id: '5', name: 'Elizabeth Parker', gender: 'female', y: 160, x: 640, color: '#A78BFA' },
   { id: '6', name: 'Emily Johnson', gender: 'female', y: 320, x: 310, color: '#34D399' },
+];
+
+const mobilePersons = [
+  { id: '1', name: 'Robert Johnson', gender: 'male', y: 0, x: 30, color: '#3B82F6' },
+  { id: '2', name: 'Margaret Johnson', gender: 'female', y: 0, x: 180, color: '#F472B6' },
+  { id: '3', name: 'James Johnson', gender: 'male', y: 160, x: 10, color: '#6366F1' },
+  { id: '4', name: 'Sarah Johnson', gender: 'female', y: 160, x: 160, color: '#F59E0B' },
+  { id: '5', name: 'Elizabeth Parker', gender: 'female', y: 160, x: 320, color: '#A78BFA' },
+  { id: '6', name: 'Emily Johnson', gender: 'female', y: 320, x: 85, color: '#34D399' },
 ];
 
 const mockEdges = [
@@ -24,6 +32,34 @@ const mockEdges = [
 ];
 
 export default function DemoPreview() {
+  const [scale, setScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (!containerRef.current) return;
+      const width = containerRef.current.getBoundingClientRect().width;
+      const mobileMode = window.innerWidth < 640;
+      setIsMobile(mobileMode);
+      
+      const targetWidth = mobileMode ? 480 : 840;
+      if (width < targetWidth) {
+        setScale(width / targetWidth);
+      } else {
+        setScale(1);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const persons = isMobile ? mobilePersons : desktopPersons;
+  const cardWidth = isMobile ? 130 : 170;
+  const halfCardWidth = cardWidth / 2;
+
   return (
     <section className="pt-32 sm:pt-48 pb-24 sm:pb-32 relative z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,64 +100,78 @@ export default function DemoPreview() {
             <span className="ml-4 text-xs text-neutral-500 font-medium tracking-wide">The Johnson Family — Family Tree Editor</span>
           </div>
 
-          {/* Canvas mock */}
-          <div className="relative h-[440px] bg-black overflow-hidden">
+          {/* Canvas mock parent */}
+          <div 
+            ref={containerRef}
+            className="relative bg-black overflow-hidden w-full transition-all duration-300 animate-fade-in"
+            style={{ height: `${(isMobile ? 420 : 440) * scale}px` }}
+          >
+            {/* Scaled wrapper container */}
+            <div 
+              className="absolute left-1/2 origin-top"
+              style={{
+                transform: `translateX(-50%) scale(${scale})`,
+                width: isMobile ? '480px' : '840px',
+                height: isMobile ? '420px' : '440px',
+                top: 0
+              }}
+            >
+              {/* SVG edges */}
+              <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
+                {mockEdges.map((edge, i) => {
+                  const from = persons.find((p) => p.id === edge.from)!;
+                  const to = persons.find((p) => p.id === edge.to)!;
+                  const fromX = from.x + halfCardWidth;
+                  const fromY = from.y + (isMobile ? 60 : 70);
+                  const toX = to.x + halfCardWidth;
+                  const toY = to.y + 10;
+                  return (
+                    <motion.path
+                      key={i}
+                      d={`M ${fromX} ${fromY} C ${fromX} ${(fromY + toY) / 2}, ${toX} ${(fromY + toY) / 2}, ${toX} ${toY}`}
+                      fill="none"
+                      stroke={edge.type === 'spouse' ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)'}
+                      strokeWidth={1.5}
+                      strokeDasharray={edge.type === 'spouse' ? '6 3' : '0'}
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      whileInView={{ pathLength: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.2, delay: 0.5 + i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    />
+                  );
+                })}
+              </svg>
 
-            {/* SVG edges */}
-            <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
-              {mockEdges.map((edge, i) => {
-                const from = mockPersons.find((p) => p.id === edge.from)!;
-                const to = mockPersons.find((p) => p.id === edge.to)!;
-                const fromX = from.x + 85;
-                const fromY = from.y + 70;
-                const toX = to.x + 85;
-                const toY = to.y + 10;
-                return (
-                  <motion.path
-                    key={i}
-                    d={`M ${fromX} ${fromY} C ${fromX} ${(fromY + toY) / 2}, ${toX} ${(fromY + toY) / 2}, ${toX} ${toY}`}
-                    fill="none"
-                    stroke={edge.type === 'spouse' ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)'}
-                    strokeWidth={1.5}
-                    strokeDasharray={edge.type === 'spouse' ? '6 3' : '0'}
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    whileInView={{ pathLength: 1, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: 0.5 + i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  />
-                );
-              })}
-            </svg>
-
-            {/* Person nodes */}
-            {mockPersons.map((person, i) => (
-              <motion.div
-                key={person.id}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="absolute"
-                style={{ left: person.x, top: person.y + 10, zIndex: 2 }}
-              >
-                <div className="w-[170px] bg-neutral-900 rounded-xl border border-white/[0.08] shadow-lg p-3 flex items-center gap-3 hover:border-white/[0.2] transition-all duration-300 cursor-pointer">
-                  <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
-                    style={{ backgroundColor: person.color }}
-                  >
-                    {getInitials(person.name)}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-sm font-medium text-white truncate">
-                      {person.name.split(' ')[0]}
+              {/* Person nodes */}
+              {persons.map((person, i) => (
+                <motion.div
+                  key={person.id}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 + i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="absolute"
+                  style={{ left: person.x, top: person.y + 10, zIndex: 2 }}
+                >
+                  <div className="w-[130px] sm:w-[170px] bg-neutral-900 rounded-xl border border-white/[0.08] shadow-lg p-2.5 sm:p-3 flex items-center gap-2 sm:gap-3 hover:border-white/[0.2] transition-all duration-300 cursor-pointer">
+                    <div
+                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white text-[10px] sm:text-xs font-bold shrink-0"
+                      style={{ backgroundColor: person.color }}
+                    >
+                      {getInitials(person.name)}
                     </div>
-                    <div className="text-xs text-neutral-500 truncate">
-                      {person.name.split(' ').slice(1).join(' ')}
+                    <div className="min-w-0">
+                      <div className="text-xs sm:text-sm font-medium text-white truncate">
+                        {person.name.split(' ')[0]}
+                      </div>
+                      <div className="text-[10px] sm:text-xs text-neutral-500 truncate">
+                        {person.name.split(' ').slice(1).join(' ')}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

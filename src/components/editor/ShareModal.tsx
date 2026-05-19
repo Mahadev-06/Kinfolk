@@ -42,8 +42,6 @@ export default function ShareModal({ isOpen, onClose, shareUrl }: ShareModalProp
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out my family tree on Kinfolk! ${shareUrl}`)}`, '_blank');
   };
 
-  if (!isOpen) return null;
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -72,7 +70,7 @@ export default function ShareModal({ isOpen, onClose, shareUrl }: ShareModalProp
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/[0.05] text-neutral-400 hover:text-white hover:bg-white/[0.1] transition-all duration-300"
+              className="absolute top-4 right-4 z-30 p-2 rounded-full bg-white/[0.05] text-neutral-400 hover:text-white hover:bg-white/[0.1] transition-all duration-300"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
