@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -7,7 +8,7 @@
 
 @theme inline {
   /* Monochrome premium palette */
-  --font-logo: "Playfair Display", serif;
+  --font-logo: "Outfit", sans-serif;
   --font-paragraph: "Inter", sans-serif;
 
   --color-accent: #ffffff;
