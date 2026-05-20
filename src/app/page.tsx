@@ -71,14 +71,7 @@ export default function LandingPage() {
               
               {/* Left Side: Brand */}
               <div className="flex justify-center sm:justify-start">
-                <div className="flex items-center gap-2.5">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span className="font-logo font-bold text-white tracking-wider uppercase text-lg">
-                    Kinfolk
-                  </span>
-                </div>
+                <img src="/logo.png" alt="Kinfolk Logo" className="w-12 h-12 object-contain invert opacity-90" />
               </div>
 
               {/* Center Side: Built with love */}

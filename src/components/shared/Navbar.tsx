@@ -83,9 +83,7 @@ export default function Navbar({ showBack = false, title, rightActions, hideHome
                 )}
                 {!isEditor && (
                   <Link href="/" className="flex items-center gap-1.5 sm:gap-2.5 haptic-click flex-shrink-0">
-                    <svg className="w-5 h-5 sm:w-7 sm:h-7 text-white/90 transition-transform hover:scale-110 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
+                    <img src="/logo.png" alt="Kinfolk Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain transition-transform hover:scale-110 duration-300 invert opacity-90" />
                     <span className="font-logo font-bold text-sm sm:text-base text-white/90 tracking-wider uppercase">
                       Kinfolk
                     </span>
@@ -231,9 +229,7 @@ function FloatingNavbar({
         className="btn-liquid-glass rounded-2xl cursor-pointer select-none pointer-events-auto"
       >
         <div className="flex items-center justify-center gap-2.5 px-6 py-3 relative z-10">
-          <svg className="w-6 h-6 text-white/90 drop-shadow-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
+          <img src="/logo.png" alt="Kinfolk Logo" className="w-9 h-9 object-contain drop-shadow-sm invert opacity-90" />
           <span className="font-logo font-bold text-base text-white/90 tracking-wider uppercase drop-shadow-sm">
             Kinfolk
           </span>
