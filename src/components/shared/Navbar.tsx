@@ -83,7 +83,7 @@ export default function Navbar({ showBack = false, title, rightActions, hideHome
                 )}
                 {!isEditor && (
                   <Link href="/" className="flex items-center gap-1.5 sm:gap-2.5 haptic-click flex-shrink-0">
-                    <img src="/logo.png" alt="Kinfolk Logo" className="w-8 h-8 sm:w-10 sm:h-10 object-contain transition-transform hover:scale-110 duration-300 invert opacity-90" />
+                    <img src="/logo.png" alt="Kinfolk Logo" className="w-10 h-10 sm:w-12 sm:h-12 object-contain transition-transform hover:scale-110 duration-300 invert opacity-90" />
                     <span className="font-logo font-bold text-sm sm:text-base text-white/90 tracking-wider uppercase">
                       Kinfolk
                     </span>
@@ -229,7 +229,7 @@ function FloatingNavbar({
         className="btn-liquid-glass rounded-2xl cursor-pointer select-none pointer-events-auto"
       >
         <div className="flex items-center justify-center gap-2.5 px-6 py-3 relative z-10">
-          <img src="/logo.png" alt="Kinfolk Logo" className="w-9 h-9 object-contain drop-shadow-sm invert opacity-90" />
+          <img src="/logo.png" alt="Kinfolk Logo" className="w-11 h-11 object-contain drop-shadow-sm invert opacity-90" />
           <span className="font-logo font-bold text-base text-white/90 tracking-wider uppercase drop-shadow-sm">
             Kinfolk
           </span>
