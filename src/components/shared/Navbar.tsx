@@ -70,25 +70,27 @@ export default function Navbar({ showBack = false, title, rightActions, hideHome
           <div className={`max-w-[100vw] mx-auto px-4 sm:px-6 lg:px-8`}>
             <div className={`flex items-center justify-between ${isEditor ? '' : 'h-16'}`}>
               {/* Left — Kinfolk branding */}
-              <div className={`flex items-center gap-4 pointer-events-auto ${isEditor ? 'bg-night-card/90 backdrop-blur-2xl border border-white/[0.06] px-5 py-2.5 rounded-xl shadow-xl' : ''}`}>
+              <div className={`flex items-center gap-2 sm:gap-4 pointer-events-auto shrink-0 ${isEditor ? 'bg-night-card/90 backdrop-blur-2xl border border-white/[0.06] px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl shadow-xl' : ''}`}>
                 {showBack && (
                   <Link
                     href="/dashboard"
-                    className="text-neutral-500 hover:text-white transition-colors duration-300"
+                    className="flex items-center justify-center text-neutral-500 hover:text-white transition-colors duration-300 flex-shrink-0 w-8 h-8 rounded-full hover:bg-white/[0.05]"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
                     </svg>
                   </Link>
                 )}
-                <Link href="/" className="flex items-center gap-2.5">
-                  <svg className="w-7 h-7 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span className="font-logo font-bold text-base text-white/90 tracking-wider uppercase">
-                    Kinfolk
-                  </span>
-                </Link>
+                {!isEditor && (
+                  <Link href="/" className="flex items-center gap-1.5 sm:gap-2.5 haptic-click flex-shrink-0">
+                    <svg className="w-5 h-5 sm:w-7 sm:h-7 text-white/90 transition-transform hover:scale-110 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span className="font-logo font-bold text-sm sm:text-base text-white/90 tracking-wider uppercase">
+                      Kinfolk
+                    </span>
+                  </Link>
+                )}
                 {title && (
                   <span className="hidden sm:inline text-neutral-500 font-light text-sm">
                     / {title}
@@ -102,7 +104,7 @@ export default function Navbar({ showBack = false, title, rightActions, hideHome
                 {user && !isEditor && (
                   <button
                     onClick={() => setShowLogoutConfirm(true)}
-                    className="group inline-flex items-center p-2 rounded-full bg-white/[0.05] text-neutral-400 hover:bg-white/[0.1] hover:text-white transition-all duration-300 text-sm font-medium border border-white/[0.08]"
+                    className="group inline-flex items-center p-2 rounded-full bg-white/[0.05] text-neutral-400 hover:bg-white/[0.1] hover:text-white transition-all duration-300 text-sm font-medium border border-white/[0.08] haptic-click"
                   >
                     <div className="w-5 h-5 flex items-center justify-center shrink-0 text-red-400">
                       <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +119,7 @@ export default function Navbar({ showBack = false, title, rightActions, hideHome
                 {!user && !hideHome && !isEditor && (
                   <Link
                     href="/"
-                    className="group inline-flex items-center p-2 rounded-full bg-white/[0.05] text-neutral-400 hover:bg-white/[0.1] hover:text-white transition-all duration-300 text-sm font-medium border border-white/[0.08]"
+                    className="group inline-flex items-center p-2 rounded-full bg-white/[0.05] text-neutral-400 hover:bg-white/[0.1] hover:text-white transition-all duration-300 text-sm font-medium border border-white/[0.08] haptic-click"
                   >
                     <div className="w-5 h-5 flex items-center justify-center shrink-0">
                       <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,7 +139,7 @@ export default function Navbar({ showBack = false, title, rightActions, hideHome
                 {!isEditor && (
                   <button 
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="p-2 rounded-lg bg-white/[0.05] text-neutral-400"
+                    className="p-2 rounded-lg bg-white/[0.05] text-neutral-400 haptic-click"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       {isMobileMenuOpen ? (
@@ -158,12 +160,13 @@ export default function Navbar({ showBack = false, title, rightActions, hideHome
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  className="md:hidden overflow-hidden bg-black/80 backdrop-blur-xl border-t border-white/5 py-4 space-y-4 pointer-events-auto"
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="md:hidden overflow-hidden bg-black/95 backdrop-blur-2xl border-t border-white/5 py-6 px-4 space-y-4 pointer-events-auto rounded-b-3xl shadow-2xl"
                 >
                   {user ? (
                     <button
                       onClick={() => setShowLogoutConfirm(true)}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-red-400 font-medium hover:bg-white/5 transition-colors"
+                      className="w-full flex items-center justify-center gap-3 px-4 py-4 rounded-xl text-red-400 font-medium bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.05] transition-all haptic-click"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -173,7 +176,7 @@ export default function Navbar({ showBack = false, title, rightActions, hideHome
                   ) : !hideHome && (
                     <Link
                       href="/"
-                      className="w-full flex items-center gap-3 px-4 py-3 text-white font-medium hover:bg-white/5 transition-colors"
+                      className="w-full flex items-center justify-center gap-3 px-4 py-4 rounded-xl text-white font-medium bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.05] transition-all haptic-click"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -216,7 +219,7 @@ function FloatingNavbar({
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[100] flex justify-between items-center px-4 sm:px-8 pt-4 pb-4 gap-4 pointer-events-none">
+    <div className="fixed top-0 left-0 right-0 z-[100] flex justify-between items-center px-4 sm:px-6 lg:px-8 pt-4 pb-4 gap-4 pointer-events-none">
       {/* Brand on the Left */}
       <motion.nav
         initial={{ x: -20, opacity: 0 }}

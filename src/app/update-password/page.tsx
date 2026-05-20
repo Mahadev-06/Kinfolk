@@ -3,53 +3,42 @@
 import { useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 
-function SignupContent() {
-  const [email, setEmail] = useState('');
+function UpdatePasswordContent() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const redirectTo = searchParams.get('redirect');
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setMessage('');
     setLoading(true);
 
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')) {
-      setError('Database connection is not configured. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your environment variables.');
-      setLoading(false);
-      return;
-    }
-
     const supabase = createClient();
-
-    const { error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
-      },
+    const { error: updateError } = await supabase.auth.updateUser({
+      password: password
     });
 
-    if (authError) {
-      setError(authError.message);
+    if (updateError) {
+      setError(updateError.message);
       setLoading(false);
     } else {
-      router.push(redirectTo || '/dashboard');
-      router.refresh();
+      setMessage('Password updated successfully! Redirecting...');
+      setTimeout(() => {
+        router.push('/dashboard');
+        router.refresh();
+      }, 2000);
     }
   };
 
   return (
     <div className="min-h-[100dvh] flex flex-col items-center justify-center p-4 relative z-10 pointer-events-auto">
-      
-      {/* Top Logo */}
       <Link href="/" className="absolute top-8 left-8 flex items-center gap-2.5 z-50">
         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -64,40 +53,31 @@ function SignupContent() {
         className="w-full max-w-md"
       >
         <div className="bg-night-card backdrop-blur-3xl border border-white/[0.08] p-8 sm:p-10 rounded-3xl shadow-2xl relative overflow-hidden">
-          
-          {/* subtle interior glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-32 bg-white/[0.03] blur-[50px] rounded-full pointer-events-none" />
 
           <div className="text-center mb-8 relative z-10">
             <h1 className="text-2xl sm:text-3xl font-display font-medium text-white tracking-tight mb-2">
-              Create Account
+              Update Password
             </h1>
             <p className="text-neutral-400 text-sm">
-              Your family tree safely stored in the cloud.
+              Please enter your new password below.
             </p>
           </div>
 
-          <form onSubmit={handleSignup} className="space-y-4 relative z-10">
+          <form onSubmit={handleUpdate} className="space-y-4 relative z-10">
             {error && (
               <div className="p-3 mb-4 text-sm text-red-300 bg-red-950/40 border border-red-500/20 rounded-xl text-center">
                 {error}
               </div>
             )}
-            
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-neutral-400 ml-1">Email</label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-black/40 border border-white/[0.08] rounded-xl focus:outline-none focus:border-white/20 focus:ring-1 focus:ring-white/20 text-white placeholder:text-neutral-600 transition-all"
-                placeholder="pedro@example.com"
-              />
-            </div>
+            {message && (
+              <div className="p-3 mb-4 text-sm text-green-300 bg-green-950/40 border border-green-500/20 rounded-xl text-center">
+                {message}
+              </div>
+            )}
 
             <div className="space-y-1">
-              <label className="text-xs font-medium text-neutral-400 ml-1">Password</label>
+              <label className="text-xs font-medium text-neutral-400 ml-1">New Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -135,27 +115,20 @@ function SignupContent() {
               {loading ? (
                 <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin mx-auto" />
               ) : (
-                'Create Account'
+                'Update Password'
               )}
             </button>
           </form>
-
-          <p className="mt-8 text-center text-sm text-neutral-500 relative z-10">
-            Already have an account?{' '}
-            <Link href="/login" className="text-white hover:underline underline-offset-4">
-              Sign In
-            </Link>
-          </p>
         </div>
       </motion.div>
     </div>
   );
 }
 
-export default function SignupPage() {
+export default function UpdatePasswordPage() {
   return (
     <Suspense fallback={<div className="min-h-[100dvh] flex items-center justify-center"><div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin" /></div>}>
-      <SignupContent />
+      <UpdatePasswordContent />
     </Suspense>
   );
 }

@@ -45,7 +45,7 @@ export default function DemoPreview() {
       
       const targetWidth = mobileMode ? 480 : 840;
       if (width < targetWidth) {
-        setScale(width / targetWidth);
+        setScale(Math.max(0.4, width / targetWidth));
       } else {
         setScale(1);
       }
@@ -150,10 +150,12 @@ export default function DemoPreview() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 + i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="absolute"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="absolute cursor-pointer haptic-click"
                   style={{ left: person.x, top: person.y + 10, zIndex: 2 }}
                 >
-                  <div className="w-[130px] sm:w-[170px] bg-neutral-900 rounded-xl border border-white/[0.08] shadow-lg p-2.5 sm:p-3 flex items-center gap-2 sm:gap-3 hover:border-white/[0.2] transition-all duration-300 cursor-pointer">
+                  <div className="w-[130px] sm:w-[170px] bg-neutral-900 rounded-xl border border-white/[0.08] shadow-lg p-2.5 sm:p-3 flex items-center gap-2 sm:gap-3 transition-colors duration-300 hover:border-white/[0.2] hover:bg-neutral-800">
                     <div
                       className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white text-[10px] sm:text-xs font-bold shrink-0"
                       style={{ backgroundColor: person.color }}

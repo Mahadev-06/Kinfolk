@@ -12,9 +12,9 @@ export default function GlassButton({ href, children }: GlassButtonProps) {
   return (
     <motion.a
       href={href}
-      whileHover={{ scale: 1.04, y: -1 }}
+      whileHover={{ scale: 1.03, y: -2 }}
       whileTap={{ scale: 0.95 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+      transition={{ type: 'spring', stiffness: 500, damping: 20 }}
       className="group relative inline-flex items-center gap-3 px-7 py-3.5 rounded-full font-medium text-[15px] text-white/90 cursor-pointer overflow-hidden transition-[border-color,box-shadow] duration-300 ease-out border border-white/[0.15] hover:border-white/[0.35] active:border-white/[0.12]"
       style={{
         background: 'rgba(255,255,255,0.08)',

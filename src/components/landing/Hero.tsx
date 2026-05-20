@@ -18,7 +18,7 @@ export default function Hero() {
 
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-28 pb-20">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 sm:pt-32 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -34,7 +34,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="text-5xl sm:text-6xl lg:text-[4.5rem] font-bold tracking-tight mb-7 leading-[1.15] sm:leading-[1.1] text-white"
+          className="text-[2.5rem] leading-[1.05] sm:text-6xl lg:text-[5.5rem] font-bold tracking-tight mb-8 sm:leading-[1.1] text-white"
         >
           {['Turn', 'your', 'family'].map((word, i) => (
             <span key={`l1-${i}`} className="inline-block mr-[0.25em] last:mr-0">
@@ -76,14 +76,15 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="flex justify-center gap-4"
+          className="flex flex-col sm:flex-row justify-center items-center gap-4"
         >
           {user ? (
             <motion.a
               href="/dashboard"
-              whileHover={{ scale: 1.02, y: -1 }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative inline-flex items-center gap-3 px-10 py-3.5 rounded-2xl font-medium text-[15px] text-white cursor-pointer btn-liquid-glass"
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+              className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-10 py-4 sm:py-3.5 rounded-2xl sm:rounded-full font-medium text-[15px] text-white cursor-pointer btn-liquid-glass haptic-click"
             >
               <span className="relative z-10">Go to Dashboard</span>
               <svg className="relative z-10 w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -94,18 +95,20 @@ export default function Hero() {
             <>
                 <motion.a
                   href="/login"
-                  whileHover={{ scale: 1.02, y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group relative inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl font-medium text-[15px] text-white/90 cursor-pointer btn-liquid-glass"
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+                  className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 sm:py-3.5 rounded-2xl sm:rounded-full font-medium text-[15px] text-white/90 cursor-pointer btn-liquid-glass haptic-click"
                 >
                   <span className="relative z-10">Sign In</span>
                 </motion.a>
 
                 <motion.a
                   href="/signup"
-                  whileHover={{ scale: 1.02, y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group relative inline-flex items-center gap-3 px-8 py-3.5 rounded-2xl font-medium text-[15px] text-white cursor-pointer btn-liquid-glass"
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+                  className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 sm:py-3.5 rounded-2xl sm:rounded-full font-medium text-[15px] text-white cursor-pointer btn-liquid-glass haptic-click"
                 >
                   <span className="relative z-10">Create Account</span>
                   <svg className="relative z-10 w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>

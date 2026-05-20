@@ -15,8 +15,8 @@ const ScrollStackItemComponent = dynamic(
 const features = [
   {
     icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
       </svg>
     ),
     title: 'Visual Tree Builder',
@@ -27,8 +27,8 @@ const features = [
   },
   {
     icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 15h2m-2 4h2m2-9.66c.33.19.64.44.9.72M12 12c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zM12 2a10 10 0 100 20 10 10 0 000-20z" />
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
       </svg>
     ),
     title: 'Cloud Synchronization',
@@ -39,8 +39,8 @@ const features = [
   },
   {
     icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
       </svg>
     ),
     title: 'Secure Account Storage',
@@ -51,8 +51,8 @@ const features = [
   },
   {
     icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
       </svg>
     ),
     title: 'Smart Relationships',
@@ -102,11 +102,11 @@ export default function Features() {
         {features.map((feature, i) => (
           <ScrollStackItemComponent key={i}>
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className={`relative bg-gradient-to-br ${feature.accent} backdrop-blur-xl rounded-2xl border border-white/[0.08] overflow-hidden shadow-2xl shadow-black/50`}>
+              <div className={`relative bg-gradient-to-br ${feature.accent} backdrop-blur-xl rounded-2xl border border-white/[0.08] overflow-hidden shadow-2xl shadow-black/50 transition-all duration-500 hover:scale-[1.02] hover:border-white/[0.2] hover:shadow-[0_20px_60px_-15px_rgba(255,255,255,0.05)] card-glow`}>
                 {/* Top accent line */}
-                <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
 
-                <div className="p-8 sm:p-10 lg:p-12 flex flex-row items-start gap-8">
+                <div className="p-6 sm:p-10 lg:p-12 flex flex-col sm:flex-row items-start gap-6 sm:gap-8">
                   {/* Left: number + icon */}
                   <div className="flex flex-col items-center gap-3 shrink-0">
                     <span className="text-[10px] font-mono text-neutral-600 tracking-widest">
@@ -118,8 +118,8 @@ export default function Features() {
                   </div>
 
                   {/* Right: content */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">
+                  <div className="flex-1 min-w-0 text-left sm:mt-2">
+                    <h3 className="text-xl sm:text-3xl font-bold text-white mb-2 sm:mb-3 tracking-tight">
                       {feature.title}
                     </h3>
                     <p className="text-neutral-400 text-base sm:text-lg leading-relaxed">
