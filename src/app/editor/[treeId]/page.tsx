@@ -28,7 +28,7 @@ export default function EditorPage({ params }: { params: Promise<{ treeId: strin
 
   if (loading) {
     return (
-      <div className="h-screen w-full bg-black flex items-center justify-center">
+      <div className="loader-overlay">
         <div className="loader-kinfolk"></div>
       </div>
     );

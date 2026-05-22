@@ -104,9 +104,9 @@ export default function SharedTreePage({ params }: { params: Promise<{ id: strin
   // Loading state
   if (loading) {
     return (
-      <div className="h-screen w-full bg-black flex flex-col items-center justify-center gap-4">
+      <div className="loader-overlay gap-4">
         <div className="loader-kinfolk"></div>
-        <p className="text-neutral-500 text-sm">Loading shared tree...</p>
+        <p className="text-neutral-300 font-medium tracking-wide">Loading shared tree...</p>
       </div>
     );
   }

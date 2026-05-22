@@ -375,11 +375,25 @@ button:active:not(:disabled) {
 }
 
 /* Custom Kinfolk Text Loader */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
 .loader-kinfolk {
   width: fit-content;
   font-size: 40px;
   font-family: system-ui, sans-serif;
   font-weight: bold;
+  font-style: italic;
   text-transform: uppercase;
   color: #0000;
   -webkit-text-stroke: 1px #fff;
@@ -387,6 +401,7 @@ button:active:not(:disabled) {
     conic-gradient(from -135deg at 100% 50%, #fff 90deg, #0000 0) text no-repeat,
     conic-gradient(from -135deg at 1lh  50%, #0000 90deg, #fff 0) text no-repeat;
   animation: l6 2s linear infinite;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
 }
 .loader-kinfolk:before {
   content: "KINFOLK";

@@ -107,7 +107,7 @@ export default function DashboardPage() {
         </motion.div>
 
         {loading ? (
-          <div className="flex justify-center py-24">
+          <div className="loader-overlay">
             <div className="loader-kinfolk"></div>
           </div>
         ) : trees.length > 0 ? (
