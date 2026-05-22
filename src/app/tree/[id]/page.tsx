@@ -105,7 +105,7 @@ export default function SharedTreePage({ params }: { params: Promise<{ id: strin
   if (loading) {
     return (
       <div className="h-screen w-full bg-black flex flex-col items-center justify-center gap-4">
-        <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+        <div className="loader-kinfolk"></div>
         <p className="text-neutral-500 text-sm">Loading shared tree...</p>
       </div>
     );
@@ -237,7 +237,7 @@ export default function SharedTreePage({ params }: { params: Promise<{ id: strin
               </>
             ) : cloning ? (
               <>
-                <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin mx-auto mb-4" />
+                <div className="loader-kinfolk mb-4"></div>
                 <p className="text-white font-medium">Saving to your dashboard...</p>
               </>
             ) : (
