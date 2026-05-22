@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="border-t border-white/[0.06] bg-black text-neutral-400 mt-auto">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 py-12 sm:py-16">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 pt-12 pb-6 sm:pt-16 sm:pb-8">
         <div className="flex flex-col md:flex-row md:justify-between gap-12 md:gap-8">
           
           {/* Col 1: Logo & Socials */}
@@ -57,8 +57,8 @@ export default function Footer() {
         </div>
 
         {/* Massive Brand Text */}
-        <div className="mt-16 w-full overflow-hidden select-none pointer-events-auto group">
-          <div className="w-full flex justify-between text-[13vw] md:text-[14vw] font-black italic uppercase leading-[0.8] text-white/10 animate-pulse group-hover:text-white/40 transition-colors duration-1000">
+        <div className="mt-16 w-full overflow-visible select-none pointer-events-auto group">
+          <div className="w-full flex justify-between text-[13vw] md:text-[14vw] font-black italic uppercase leading-none pt-2 md:pt-4 pb-2 text-white/10 animate-pulse group-hover:text-white/40 transition-colors duration-1000">
             <span>K</span>
             <span>I</span>
             <span>N</span>
@@ -70,7 +70,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Copyright */}
-        <div className="pt-8 border-t border-white/[0.06] text-sm flex justify-center pb-4">
+        <div className="pt-6 border-t border-white/[0.06] text-sm flex justify-center">
           <p>&copy; {new Date().getFullYear()} Kinfolk. All rights reserved.</p>
         </div>
       </div>
