@@ -44,7 +44,7 @@ export default function ContactPage() {
             
             <div className="mt-12 pt-8 border-t border-white/10">
               <h3 className="text-xl text-white font-semibold mb-4">Send us a message</h3>
-              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); }}>
+              <form className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-neutral-400 mb-1">Name</label>
                   <input type="text" id="name" className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-white/20 transition-all" placeholder="Your name" />
