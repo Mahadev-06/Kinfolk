@@ -65,7 +65,7 @@ export default function LandingPage() {
         </section>
 
         {/* Footer */}
-        <footer className="bg-[#11080E] text-[#a39f9d]">
+        <footer className="border-t border-white/[0.06] bg-black text-neutral-400">
           <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 py-12 sm:py-16">
             <div className="flex flex-col md:flex-row md:justify-between gap-12 md:gap-8">
               
