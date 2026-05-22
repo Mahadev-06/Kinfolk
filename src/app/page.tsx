@@ -111,7 +111,6 @@ export default function LandingPage() {
               <div className="flex flex-col gap-6 md:w-1/4">
                 <h3 className="text-white font-bold tracking-wider text-sm uppercase">Quick Links</h3>
                 <ul className="flex flex-col gap-4 text-[15px]">
-                  <li><a href="#" className="hover:text-white transition-colors">Copyright</a></li>
                   <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
                   <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
                   <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
