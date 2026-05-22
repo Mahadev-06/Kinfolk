@@ -57,10 +57,16 @@ export default function Footer() {
         </div>
 
         {/* Massive Brand Text */}
-        <div className="mt-16 mb-8 w-full flex justify-center items-center overflow-hidden pointer-events-none">
-          <span className="text-[22vw] md:text-[16vw] lg:text-[12rem] font-bold italic leading-none tracking-tighter text-white select-none">
-            Kinfolk
-          </span>
+        <div className="mt-16 w-full overflow-hidden select-none pointer-events-auto group">
+          <div className="w-full flex justify-between text-[16vw] md:text-[18vw] font-black italic uppercase leading-[0.8] text-white/10 animate-pulse group-hover:text-white/40 transition-colors duration-1000">
+            <span>K</span>
+            <span>I</span>
+            <span>N</span>
+            <span>F</span>
+            <span>O</span>
+            <span>L</span>
+            <span>K</span>
+          </div>
         </div>
 
         {/* Bottom Copyright */}
