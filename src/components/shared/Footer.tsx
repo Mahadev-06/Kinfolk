@@ -58,14 +58,14 @@ export default function Footer() {
 
         {/* Massive Brand Text */}
         <div className="mt-16 w-full overflow-hidden select-none pointer-events-auto group">
-          <div className="w-full flex justify-between text-[16vw] md:text-[18vw] font-black italic uppercase leading-[0.8] text-white/10 animate-pulse group-hover:text-white/40 transition-colors duration-1000">
+          <div className="w-full flex justify-between text-[13vw] md:text-[14vw] font-black italic uppercase leading-[0.8] text-white/10 animate-pulse group-hover:text-white/40 transition-colors duration-1000">
             <span>K</span>
             <span>I</span>
             <span>N</span>
             <span>F</span>
             <span>O</span>
             <span>L</span>
-            <span>K</span>
+            <span className="pr-2 md:pr-4">K</span>
           </div>
         </div>
 
