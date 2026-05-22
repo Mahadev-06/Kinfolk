@@ -56,8 +56,15 @@ export default function Footer() {
 
         </div>
 
+        {/* Massive Brand Text */}
+        <div className="mt-16 mb-8 w-full flex justify-center items-center overflow-hidden pointer-events-none">
+          <span className="text-[22vw] md:text-[16vw] lg:text-[12rem] font-bold italic leading-none tracking-tighter text-white select-none">
+            Kinfolk
+          </span>
+        </div>
+
         {/* Bottom Copyright */}
-        <div className="mt-16 pt-8 border-t border-white/[0.06] text-sm">
+        <div className="pt-8 border-t border-white/[0.06] text-sm flex justify-center pb-4">
           <p>&copy; {new Date().getFullYear()} Kinfolk. All rights reserved.</p>
         </div>
       </div>
